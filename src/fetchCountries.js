@@ -1,5 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { makeUpCountryList } from './index';
+import { makeUpCountryCard } from './index';
 
 function fetchCountries(name) {
   const searchParams = {
@@ -26,8 +27,10 @@ function fetchCountries(name) {
         Notify.warning(
           `Пожалуйста продолжайте вводить запрос. Слишком много совпадений`
         );
-      } else {
+      } else if (data.length > 1) {
         makeUpCountryList(data);
+      } else {
+        makeUpCountryCard(data);
       }
     })
     .catch(error => {
