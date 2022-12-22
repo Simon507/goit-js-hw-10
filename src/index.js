@@ -22,12 +22,11 @@ function onInput() {
   while (countryInfo.firstChild) {
     countryInfo.firstChild.remove();
   }
-  let name = input.value;
+  let name = input.value.trim();
 
   fetchCountries(name);
 }
 function makeUpCountryList(data) {
-  console.log(data);
   for (let i = 0; i < data.length; i++) {
     const newItem = document.createElement('li');
     const newImg = document.createElement('img');
@@ -49,7 +48,6 @@ function makeUpCountryList(data) {
 }
 
 function makeUpCountryCard(data) {
-  console.log(data);
   const newImg = document.createElement('img');
   const newList = document.createElement('ul');
   for (let i = 1; i < 5; i++) {
@@ -75,7 +73,7 @@ function makeUpCountryCard(data) {
   li_1.style.fontSize = '36px';
   li_1.style.fontStyle = 'bold';
   li_2.textContent = `Capital: ${data[0].capital}`;
-  li_3.textContent = `Official language: ${Object.values(data[0].languages)}`;
+  li_3.textContent = `Language: ${Object.values(data[0].languages)}`;
   li_4.textContent = `Population: ${data[0].population}`;
 }
 

@@ -3,6 +3,9 @@ import { makeUpCountryList } from './index';
 import { makeUpCountryCard } from './index';
 
 function fetchCountries(name) {
+  if (!name) {
+    return;
+  }
   const searchParams = {
     name: 'name',
     capital: 'capital',
@@ -25,7 +28,7 @@ function fetchCountries(name) {
     .then(data => {
       if (data.length > 10) {
         Notify.warning(
-          `Пожалуйста продолжайте вводить запрос. Слишком много совпадений`
+          `Too many matches found. Please enter a more specific name.`
         );
       } else if (data.length > 1) {
         makeUpCountryList(data);
@@ -34,7 +37,9 @@ function fetchCountries(name) {
       }
     })
     .catch(error => {
-      console.log(error);
+      if (error.message == '404') {
+        Notify.failure(`Oops, there is no country with that name`);
+      }
     });
 }
 
